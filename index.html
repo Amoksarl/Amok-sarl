@@ -1,79 +1,250 @@
-<!DOCTYPE html><html lang="fr">
+
+<!DOCTYPE html>
+<html lang="fr">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AMOK SARL</title>
+  <meta name="theme-color" content="#12345a">
+  <title>AMOK SARL | Logistique et transport</title>
+
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       margin: 0;
       font-family: Arial, sans-serif;
-      background: #f2f4f8;
-      color: #17233d;
+      background: #f4f6fa;
+      color: #243247;
+      line-height: 1.6;
+    }
+
+    header {
+      background: #12345a;
+      color: white;
+      padding: 28px 18px;
       text-align: center;
     }
-    header {
-      background: #10264a;
-      color: white;
-      padding: 30px 15px;
-    }
-    h1 {
+
+    header h1 {
       margin: 0;
-      font-size: 32px;
+      font-size: 34px;
+      letter-spacing: 2px;
     }
-    main {
-      padding: 25px 15px;
-    }
-    .carte {
-      background: white;
-      max-width: 500px;
-      margin: 20px auto;
-      padding: 20px;
-      border-radius: 12px;
-      box-shadow: 0 2px 8px #00000015;
-    }
-    a.bouton {
-      display: inline-block;
-      background: #e5b52b;
-      color: #10264a;
-      padding: 12px 20px;
-      margin-top: 10px;
-      border-radius: 6px;
-      text-decoration: none;
+
+    header p {
+      margin: 8px 0 0;
+      color: #f3c64e;
       font-weight: bold;
     }
-    footer {
-      padding: 20px;
-      background: #10264a;
+
+    .hero {
+      background: white;
+      text-align: center;
+      padding: 38px 20px;
+    }
+
+    .hero h2 {
+      color: #12345a;
+      font-size: 27px;
+      margin-top: 0;
+    }
+
+    .hero p {
+      max-width: 650px;
+      margin: 12px auto;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 13px 22px;
+      margin: 10px 5px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+      text-align: center;
+    }
+
+    .btn-primary {
+      background: #12345a;
       color: white;
+    }
+
+    .btn-secondary {
+      background: #f3c64e;
+      color: #12345a;
+    }
+
+    .services {
+      max-width: 1000px;
+      margin: auto;
+      padding: 28px 18px;
+    }
+
+    .services h2 {
+      text-align: center;
+      color: #12345a;
+      margin-bottom: 24px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 18px;
+    }
+
+    .card {
+      background: white;
+      padding: 22px;
+      border-radius: 12px;
+      border: 1px solid #e0e5ed;
+      box-shadow: 0 3px 12px #12345a0d;
+    }
+
+    .card .emoji {
+      font-size: 35px;
+    }
+
+    .card h3 {
+      color: #12345a;
+      margin-bottom: 8px;
+    }
+
+    .steps {
+      background: #e9eef5;
+      padding: 28px 20px;
+      text-align: center;
+    }
+
+    .steps h2 {
+      color: #12345a;
+    }
+
+    .steps p {
+      max-width: 650px;
+      margin: 10px auto;
+    }
+
+    footer {
+      background: #12345a;
+      color: white;
+      text-align: center;
+      padding: 24px 16px;
+    }
+
+    footer a {
+      color: #f3c64e;
+    }
+
+    .small {
+      font-size: 13px;
+      color: #667085;
+    }
+
+    footer .small {
+      color: #e0e7f0;
     }
   </style>
 </head>
+
 <body>
+
   <header>
     <h1>AMOK SARL</h1>
-    <p>Votre partenaire de confiance pour la mise en relation commerciale</p>
+    <p>Connecter les opportunités aux bonnes personnes.</p>
   </header>
+
   <main>
-    <div class="carte">
+    <section class="hero">
       <h2>Bienvenue chez AMOK SARL</h2>
-      <p>Une plateforme de mise en relation pour faciliter les échanges commerciaux au Niger.</p>
-    </div>
-    <div class="carte">
-      <h2>Nos domaines</h2>
-      <p>Immobilier : maisons, villas et terrains.</p>
-      <p>Véhicules : voitures et camions.</p>
-      <p>Engins : matériel de chantier et grues.</p>
-      <p>Or : mise en relation entre acheteurs et vendeurs.</p>
-      <p>Commerce général et transport.</p>
-    </div>
-    <div class="carte">
-      <h2>Nous contacter</h2>
-      <p>Contactez AMOK SARL pour obtenir des informations.</p>
-      <a class="bouton" href="https://wa.me/22780138000">Contacter par WhatsApp</a>
-    </div>
+
+      <p>
+        Votre partenaire de mise en relation dans les domaines
+        de la logistique, du transport et des véhicules.
+      </p>
+
+      <p>
+        Notre objectif est de rapprocher les clients, les transporteurs
+        et les entreprises afin de faciliter leurs échanges commerciaux.
+      </p>
+
+      <a class="btn btn-primary" href="./inscription.html">
+        Créer un compte
+      </a>
+
+      <a class="btn btn-secondary" href="#services">
+        Découvrir nos services
+      </a>
+    </section>
+
+    <section class="services" id="services">
+      <h2>Nos domaines d'activité</h2>
+
+      <div class="grid">
+
+        <article class="card">
+          <div class="emoji">🚚</div>
+          <h3>Logistique</h3>
+          <p>
+            Mise en relation avec les propriétaires de camions
+            et d'engins de chantier selon les besoins des clients.
+          </p>
+        </article>
+
+        <article class="card">
+          <div class="emoji">🛣️</div>
+          <h3>Transport</h3>
+          <p>
+            Facilitation des demandes de transport de marchandises,
+            notamment pour les trajets longue distance.
+          </p>
+        </article>
+
+        <article class="card">
+          <div class="emoji">🚗</div>
+          <h3>Vente et location</h3>
+          <p>
+            Espace prévu pour les annonces de vente et de location
+            de voitures, de camions et d'engins.
+          </p>
+        </article>
+
+      </div>
+    </section>
+
+    <section class="steps">
+      <h2>Comment rejoindre AMOK SARL ?</h2>
+
+      <p>1. Créez votre compte et renseignez vos informations.</p>
+      <p>2. Attendez la vérification et la validation de votre compte.</p>
+      <p>3. Accédez aux services autorisés selon votre profil.</p>
+
+      <a class="btn btn-primary" href="./inscription.html">
+        Demander mon inscription
+      </a>
+
+      <p class="small">
+        La validation effective des comptes nécessitera la mise
+        en place d'un système de gestion dédié.
+      </p>
+    </section>
   </main>
+
   <footer>
-    <p>AMOK SARL — Niger</p>
+    <h3>AMOK SARL</h3>
+    <p>Connecter les opportunités aux bonnes personnes.</p>
+
+    <p>
+      <a href="https://wa.me/22780138000">
+        Nous contacter sur WhatsApp
+      </a>
+    </p>
+
+    <p class="small">
+      © 2026 AMOK SARL — Tous droits réservés.
+    </p>
   </footer>
+
 </body>
 </html>
