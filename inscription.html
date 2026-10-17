@@ -1,0 +1,114 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Créer un compte - AMOK SARL</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      padding: 20px;
+      font-family: Arial, sans-serif;
+      background: #f1f4f8;
+      color: #172b4d;
+    }
+    .container {
+      max-width: 520px;
+      margin: 20px auto;
+      padding: 24px;
+      background: white;
+      border-radius: 14px;
+      box-shadow: 0 4px 18px #00000012;
+    }
+    h1 { color: #12345a; text-align: center; }
+    .slogan { text-align: center; color: #667085; }
+    label { display: block; margin-top: 16px; font-weight: bold; }
+    input, select, textarea {
+      width: 100%;
+      padding: 12px;
+      margin-top: 7px;
+      border: 1px solid #ccd3dd;
+      border-radius: 7px;
+      font-size: 16px;
+    }
+    button, .retour {
+      display: block;
+      width: 100%;
+      padding: 13px;
+      margin-top: 20px;
+      border: 0;
+      border-radius: 7px;
+      background: #12345a;
+      color: white;
+      font-size: 16px;
+      text-align: center;
+      text-decoration: none;
+    }
+    .note { font-size: 13px; color: #667085; }
+  </style>
+</head>
+<body>
+  <main class="container">
+    <h1>AMOK SARL</h1>
+    <p class="slogan">Connecter les opportunités aux bonnes personnes.</p>
+    <h2>Créer un compte</h2>
+    <p>Remplissez les informations pour demander votre inscription.</p>
+
+    <form id="inscription">
+      <label for="nom">Nom complet ou nom de l'entreprise *</label>
+      <input id="nom" name="nom" required>
+
+      <label for="profil">Type de compte *</label>
+      <select id="profil" name="profil" required>
+        <option value="">Choisir un profil</option>
+        <option>Transporteur</option>
+        <option>Entreprise</option>
+        <option>Personnel</option>
+        <option>Autre</option>
+      </select>
+
+      <label for="autre">Si « Autre », précisez</label>
+      <input id="autre" name="autre">
+
+      <label for="telephone">Numéro de téléphone *</label>
+      <input id="telephone" name="telephone" type="tel"
+             placeholder="Ex. : 80 00 00 00" required>
+
+      <label for="ville">Ville *</label>
+      <input id="ville" name="ville" value="Niamey" required>
+
+      <label for="services">Services recherchés ou proposés *</label>
+      <select id="services" name="services" required>
+        <option value="">Choisir un domaine</option>
+        <option>Logistique</option>
+        <option>Transport</option>
+        <option>Vente de véhicules</option>
+        <option>Location de véhicules</option>
+        <option>Engins et matériel de chantier</option>
+      </select>
+
+      <label for="details">Informations complémentaires</label>
+      <textarea id="details" name="details" rows="3"
+        placeholder="Décrivez votre activité"></textarea>
+
+      <p class="note">
+        Votre compte devra être vérifié et validé par AMOK SARL.
+      </p>
+
+      <button type="submit">Envoyer ma demande</button>
+      <a class="retour" href="./index.html">Retour à l'accueil</a>
+      <p id="message" role="status"></p>
+    </form>
+  </main>
+
+  <script>
+    document.getElementById("inscription").addEventListener("submit", function(e) {
+      e.preventDefault();
+      document.getElementById("message").textContent =
+        "Le formulaire fonctionne, mais l'envoi réel des demandes sera activé après la mise en place du système d'enregistrement.";
+    });
+  </script>
+</body>
+</html>
