@@ -1,10 +1,11 @@
 
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Créer un compte - AMOK SARL</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Inscription | AMOK SARL</title>
   <style>
     * { box-sizing: border-box; }
     body {
@@ -12,103 +13,104 @@
       padding: 20px;
       font-family: Arial, sans-serif;
       background: #f1f4f8;
-      color: #172b4d;
+      color: #183153;
     }
-    .container {
-      max-width: 520px;
+    main {
+      max-width: 480px;
       margin: 20px auto;
       padding: 24px;
       background: white;
-      border-radius: 14px;
-      box-shadow: 0 4px 18px #00000012;
+      border-radius: 12px;
+      box-shadow: 0 4px 16px #0001;
     }
-    h1 { color: #12345a; text-align: center; }
-    .slogan { text-align: center; color: #667085; }
-    label { display: block; margin-top: 16px; font-weight: bold; }
-    input, select, textarea {
+    h1, h2 { text-align: center; }
+    h1 { color: #123b65; }
+    .slogan { text-align: center; color: #536579; }
+    label {
+      display: block;
+      margin-top: 16px;
+      font-weight: bold;
+    }
+    input, select, button {
       width: 100%;
       padding: 12px;
       margin-top: 7px;
-      border: 1px solid #ccd3dd;
+      border: 1px solid #cbd5e1;
       border-radius: 7px;
       font-size: 16px;
     }
-    button, .retour {
-      display: block;
-      width: 100%;
-      padding: 13px;
-      margin-top: 20px;
-      border: 0;
-      border-radius: 7px;
-      background: #12345a;
+    button {
+      margin-top: 22px;
+      border: none;
+      background: #123b65;
       color: white;
-      font-size: 16px;
-      text-align: center;
-      text-decoration: none;
+      font-weight: bold;
+      cursor: pointer;
     }
-    .note { font-size: 13px; color: #667085; }
+    .info { font-size: 14px; line-height: 1.5; }
+    #message { margin-top: 15px; line-height: 1.5; }
+    a { color: #123b65; }
   </style>
 </head>
 <body>
-  <main class="container">
+  <main>
     <h1>AMOK SARL</h1>
-    <p class="slogan">Connecter les opportunités aux bonnes personnes.</p>
+    <p class="slogan">
+      Connecter les opportunités aux bonnes personnes.
+    </p>
     <h2>Créer un compte</h2>
-    <p>Remplissez les informations pour demander votre inscription.</p>
 
-    <form id="inscription">
-      <label for="nom">Nom complet ou nom de l'entreprise *</label>
-      <input id="nom" name="nom" required>
+    <p class="info">
+      Remplissez ce formulaire. Votre inscription restera
+      en attente jusqu'à sa vérification par l'administration.
+    </p>
 
-      <label for="profil">Type de compte *</label>
-      <select id="profil" name="profil" required>
+    <form id="inscriptionForm">
+      <label for="nom">Nom complet</label>
+      <input id="nom" name="nom_complet"
+             type="text" autocomplete="name" required>
+
+      <label for="telephone">Téléphone</label>
+      <input id="telephone" name="telephone"
+             type="tel" autocomplete="tel"
+             placeholder="Ex. : 80138000" required>
+
+      <label for="type">Type de compte</label>
+      <select id="type" name="type_compte" required>
         <option value="">Choisir un profil</option>
-        <option>Transporteur</option>
-        <option>Entreprise</option>
-        <option>Personnel</option>
-        <option>Autre</option>
+        <option value="Transporteur">Transporteur</option>
+        <option value="Entreprise">Entreprise</option>
+        <option value="Personnel">Personnel</option>
+        <option value="Autre">Autre</option>
       </select>
 
-      <label for="autre">Si « Autre », précisez</label>
-      <input id="autre" name="autre">
-
-      <label for="telephone">Numéro de téléphone *</label>
-      <input id="telephone" name="telephone" type="tel"
-             placeholder="Ex. : 80 00 00 00" required>
-
-      <label for="ville">Ville *</label>
-      <input id="ville" name="ville" value="Niamey" required>
-
-      <label for="services">Services recherchés ou proposés *</label>
-      <select id="services" name="services" required>
+      <label for="domaine">Domaine d'activité</label>
+      <select id="domaine" name="domaine" required>
         <option value="">Choisir un domaine</option>
-        <option>Logistique</option>
-        <option>Transport</option>
-        <option>Vente de véhicules</option>
-        <option>Location de véhicules</option>
-        <option>Engins et matériel de chantier</option>
+        <option value="Logistique">Logistique</option>
+        <option value="Transport">Transport</option>
+        <option value="Vente et location de voitures">
+          Vente et location de voitures
+        </option>
       </select>
 
-      <label for="details">Informations complémentaires</label>
-      <textarea id="details" name="details" rows="3"
-        placeholder="Décrivez votre activité"></textarea>
-
-      <p class="note">
-        Votre compte devra être vérifié et validé par AMOK SARL.
-      </p>
-
-      <button type="submit">Envoyer ma demande</button>
-      <a class="retour" href="./index.html">Retour à l'accueil</a>
-      <p id="message" role="status"></p>
+      <button type="submit">Envoyer mon inscription</button>
+      <p id="message" role="status" aria-live="polite"></p>
     </form>
+
+    <p class="info">
+      <a href="index.html">Retour à l'accueil</a>
+    </p>
   </main>
 
   <script>
-    document.getElementById("inscription").addEventListener("submit", function(e) {
-      e.preventDefault();
-      document.getElementById("message").textContent =
-        "Le formulaire fonctionne, mais l'envoi réel des demandes sera activé après la mise en place du système d'enregistrement.";
-    });
+    document.getElementById("inscriptionForm")
+      .addEventListener("submit", function(event) {
+        event.preventDefault();
+        document.getElementById("message").textContent =
+          "Le formulaire est prêt, mais la connexion sécurisée " +
+          "à la base de données doit encore être configurée.";
+      });
   </script>
 </body>
 </html>
