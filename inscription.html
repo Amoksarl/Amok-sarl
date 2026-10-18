@@ -1,19 +1,17 @@
 
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Inscription | AMOK SARL</title>
+  <title>Inscription - AMOK SARL</title>
   <style>
-    * { box-sizing: border-box; }
     body {
-      margin: 0;
-      padding: 20px;
       font-family: Arial, sans-serif;
       background: #f1f4f8;
       color: #183153;
+      padding: 20px;
+      margin: 0;
     }
     main {
       max-width: 480px;
@@ -23,9 +21,7 @@
       border-radius: 12px;
       box-shadow: 0 4px 16px #0001;
     }
-    h1, h2 { text-align: center; }
-    h1 { color: #123b65; }
-    .slogan { text-align: center; color: #536579; }
+    h1, h2, .slogan { text-align: center; }
     label {
       display: block;
       margin-top: 16px;
@@ -33,84 +29,110 @@
     }
     input, select, button {
       width: 100%;
+      box-sizing: border-box;
       padding: 12px;
       margin-top: 7px;
-      border: 1px solid #cbd5e1;
+      border: 1px solid #ccd5e0;
       border-radius: 7px;
       font-size: 16px;
     }
     button {
       margin-top: 22px;
-      border: none;
       background: #123b65;
       color: white;
+      border: 0;
       font-weight: bold;
-      cursor: pointer;
     }
-    .info { font-size: 14px; line-height: 1.5; }
-    #message { margin-top: 15px; line-height: 1.5; }
-    a { color: #123b65; }
+    #message { line-height: 1.5; }
   </style>
 </head>
 <body>
-  <main>
-    <h1>AMOK SARL</h1>
-    <p class="slogan">
-      Connecter les opportunités aux bonnes personnes.
-    </p>
-    <h2>Créer un compte</h2>
+<main>
+  <h1>AMOK SARL</h1>
+  <p class="slogan">Connecter les opportunités aux bonnes personnes.</p>
+  <h2>Créer un compte</h2>
 
-    <p class="info">
-      Remplissez ce formulaire. Votre inscription restera
-      en attente jusqu'à sa vérification par l'administration.
-    </p>
+  <form id="inscriptionForm">
+    <label for="nom">Nom complet</label>
+    <input id="nom" name="nom_complet" required>
 
-    <form id="inscriptionForm">
-      <label for="nom">Nom complet</label>
-      <input id="nom" name="nom_complet"
-             type="text" autocomplete="name" required>
+    <label for="telephone">Téléphone</label>
+    <input id="telephone" name="telephone" type="tel" required>
 
-      <label for="telephone">Téléphone</label>
-      <input id="telephone" name="telephone"
-             type="tel" autocomplete="tel"
-             placeholder="Ex. : 80138000" required>
+    <label for="type">Type de compte</label>
+    <select id="type" name="type_compte" required>
+      <option value="">Choisir un profil</option>
+      <option value="Transporteur">Transporteur</option>
+      <option value="Entreprise">Entreprise</option>
+      <option value="Personnel">Personnel</option>
+      <option value="Autre">Autre</option>
+    </select>
 
-      <label for="type">Type de compte</label>
-      <select id="type" name="type_compte" required>
-        <option value="">Choisir un profil</option>
-        <option value="Transporteur">Transporteur</option>
-        <option value="Entreprise">Entreprise</option>
-        <option value="Personnel">Personnel</option>
-        <option value="Autre">Autre</option>
-      </select>
+    <label for="domaine">Domaine d'activité</label>
+    <select id="domaine" name="domaine" required>
+      <option value="">Choisir un domaine</option>
+      <option value="Logistique">Logistique</option>
+      <option value="Transport">Transport</option>
+      <option value="Vente et location de voitures">
+        Vente et location de voitures
+      </option>
+    </select>
 
-      <label for="domaine">Domaine d'activité</label>
-      <select id="domaine" name="domaine" required>
-        <option value="">Choisir un domaine</option>
-        <option value="Logistique">Logistique</option>
-        <option value="Transport">Transport</option>
-        <option value="Vente et location de voitures">
-          Vente et location de voitures
-        </option>
-      </select>
+    <button id="envoyer" type="submit">Envoyer mon inscription</button>
+    <p id="message" role="status" aria-live="polite"></p>
+  </form>
 
-      <button type="submit">Envoyer mon inscription</button>
-      <p id="message" role="status" aria-live="polite"></p>
-    </form>
+  <p><a href="index.html">Retour à l'accueil</a></p>
+</main>
 
-    <p class="info">
-      <a href="index.html">Retour à l'accueil</a>
-    </p>
-  </main>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+  const SUPABASE_URL =
+    "https://oqldqbqgpnxqxvvhittq.supabase.co";
 
-  <script>
-    document.getElementById("inscriptionForm")
-      .addEventListener("submit", function(event) {
-        event.preventDefault();
-        document.getElementById("message").textContent =
-          "Le formulaire est prêt, mais la connexion sécurisée " +
-          "à la base de données doit encore être configurée.";
-      });
-  </script>
+  const SUPABASE_KEY =
+    "sb_publishable_FSdiX_eKPEXsoDLKVziPpg_iY7rZqDW";
+
+  const client = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+  );
+
+  const form = document.getElementById("inscriptionForm");
+  const message = document.getElementById("message");
+  const bouton = document.getElementById("envoyer");
+
+  form.addEventListener("submit", async function(event) {
+    event.preventDefault();
+    bouton.disabled = true;
+    message.textContent = "Envoi de l'inscription en cours...";
+
+    const inscription = {
+      nom_complet: document.getElementById("nom").value.trim(),
+      telephone: document.getElementById("telephone").value.trim(),
+      type_compte: document.getElementById("type").value,
+      domaine: document.getElementById("domaine").value,
+      statut: "en_attente"
+    };
+
+    try {
+      const { error } = await client
+        .from("inscriptions")
+        .insert([inscription]);
+
+      if (error) throw error;
+
+      message.textContent =
+        "Inscription envoyée ! Votre compte est en attente de validation.";
+      form.reset();
+    } catch (error) {
+      console.error(error);
+      message.textContent =
+        "Échec de l'inscription. Vérifiez la connexion et les autorisations Supabase, puis réessayez.";
+    } finally {
+      bouton.disabled = false;
+    }
+  });
+</script>
 </body>
 </html>
