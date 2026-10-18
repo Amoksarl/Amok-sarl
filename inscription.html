@@ -6,6 +6,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Inscription - AMOK SARL</title>
   <style>
+    * { box-sizing: border-box; }
+
     body {
       font-family: Arial, sans-serif;
       background: #f1f4f8;
@@ -13,6 +15,7 @@
       padding: 20px;
       margin: 0;
     }
+
     main {
       max-width: 480px;
       margin: 20px auto;
@@ -21,43 +24,73 @@
       border-radius: 12px;
       box-shadow: 0 4px 16px #0001;
     }
+
     h1, h2, .slogan { text-align: center; }
+
+    h1 { color: #123b65; }
+
     label {
       display: block;
       margin-top: 16px;
       font-weight: bold;
     }
+
     input, select, button {
       width: 100%;
-      box-sizing: border-box;
       padding: 12px;
       margin-top: 7px;
       border: 1px solid #ccd5e0;
       border-radius: 7px;
       font-size: 16px;
     }
+
     button {
       margin-top: 22px;
       background: #123b65;
       color: white;
       border: 0;
       font-weight: bold;
+      cursor: pointer;
     }
-    #message { line-height: 1.5; }
+
+    button:disabled {
+      opacity: 0.6;
+      cursor: wait;
+    }
+
+    #message {
+      margin-top: 16px;
+      line-height: 1.5;
+      overflow-wrap: anywhere;
+    }
+
+    .info {
+      font-size: 14px;
+      line-height: 1.5;
+    }
   </style>
 </head>
 <body>
 <main>
   <h1>AMOK SARL</h1>
-  <p class="slogan">Connecter les opportunités aux bonnes personnes.</p>
+  <p class="slogan">
+    Connecter les opportunités aux bonnes personnes.
+  </p>
   <h2>Créer un compte</h2>
+
+  <p class="info">
+    Remplissez ce formulaire. Votre inscription sera
+    en attente de validation par l'administration.
+  </p>
 
   <form id="inscriptionForm">
     <label for="nom">Nom complet</label>
-    <input id="nom" name="nom_complet" required>
+    <input id="nom" name="nom_complet"
+           autocomplete="name" required>
 
     <label for="telephone">Téléphone</label>
-    <input id="telephone" name="telephone" type="tel" required>
+    <input id="telephone" name="telephone"
+           type="tel" autocomplete="tel" required>
 
     <label for="type">Type de compte</label>
     <select id="type" name="type_compte" required>
@@ -78,11 +111,16 @@
       </option>
     </select>
 
-    <button id="envoyer" type="submit">Envoyer mon inscription</button>
+    <button id="envoyer" type="submit">
+      Envoyer mon inscription
+    </button>
+
     <p id="message" role="status" aria-live="polite"></p>
   </form>
 
-  <p><a href="index.html">Retour à l'accueil</a></p>
+  <p class="info">
+    <a href="index.html">Retour à l'accueil</a>
+  </p>
 </main>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -93,19 +131,29 @@
   const SUPABASE_KEY =
     "sb_publishable_FSdiX_eKPEXsoDLKVziPpg_iY7rZqDW";
 
-  const client = window.supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_KEY
-  );
-
   const form = document.getElementById("inscriptionForm");
-  const message = document.getElementById("message");
   const bouton = document.getElementById("envoyer");
+  const message = document.getElementById("message");
+
+  function afficherErreur(error) {
+    console.error("Erreur d'inscription AMOK :", error);
+
+    const code = error.code ? " (" + error.code + ")" : "";
+    message.textContent =
+      "Échec : " + (error.message || "Erreur inconnue") + code;
+  }
 
   form.addEventListener("submit", async function(event) {
     event.preventDefault();
+
+    if (!window.supabase) {
+      message.textContent =
+        "La bibliothèque Supabase ne s'est pas chargée. Vérifiez la connexion Internet.";
+      return;
+    }
+
     bouton.disabled = true;
-    message.textContent = "Envoi de l'inscription en cours...";
+    message.textContent = "Envoi en cours...";
 
     const inscription = {
       nom_complet: document.getElementById("nom").value.trim(),
@@ -116,19 +164,26 @@
     };
 
     try {
+      const client = window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY
+      );
+
       const { error } = await client
         .from("inscriptions")
         .insert([inscription]);
 
-      if (error) throw error;
+      if (error) {
+        afficherErreur(error);
+        return;
+      }
 
       message.textContent =
-        "Inscription envoyée ! Votre compte est en attente de validation.";
+        "Inscription envoyée avec succès. Votre compte est en attente de validation.";
       form.reset();
+
     } catch (error) {
-      console.error(error);
-      message.textContent =
-        "Échec de l'inscription. Vérifiez la connexion et les autorisations Supabase, puis réessayez.";
+      afficherErreur(error);
     } finally {
       bouton.disabled = false;
     }
